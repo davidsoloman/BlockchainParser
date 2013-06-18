@@ -3,12 +3,13 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class Block implements Comparable<Block>{
+	private static final BigInteger MINUS_ONE = new BigInteger("-1");
+	private static final BigInteger BASE = BigInteger.valueOf(256L);
 	long version;
 	BigInteger previous_hash;
 	BigInteger merkle_root;
 	Date timestamp;
 	long bits;
-	BigInteger target;
 	long nounce;
 	BigInteger hash;
 	long height;
@@ -39,7 +40,12 @@ public class Block implements Comparable<Block>{
 			return false;
 		return true;
 	}
-
+	
+	public BigInteger getTarget() {
+		BigInteger mantisse = BigInteger.valueOf(bits & 0x007fffffL);
+		BigInteger exponent = BASE.pow((int)(bits >> 24L)-3); 
+		return MINUS_ONE.pow((int)(bits & 0x00800000L)).multiply(mantisse).multiply(exponent);
+	}
 	
 
 	public static String formatHash(BigInteger hash2) {

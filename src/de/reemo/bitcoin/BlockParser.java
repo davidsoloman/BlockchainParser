@@ -21,13 +21,13 @@ public class BlockParser {
 		}
 	}
 
-	public static Block parseBlock(ByteParsingPipeInputStreamReader ois, long blockLength) throws IOException {
+	public static Block parseBlock(BlockInputStreamReader ois, long blockLength) throws IOException {
 		Block block = new Block();
 		byte[] header = new byte[80];
 		ois.read(header);
 		
 		@SuppressWarnings("resource")
-		ByteParsingPipeInputStreamReader is = new ByteParsingPipeInputStreamReader(new ByteArrayInputStream(header));
+		BlockInputStreamReader is = new BlockInputStreamReader(new ByteArrayInputStream(header));
 		
 		block.version = is.readUInt32LE();
 		block.previous_hash = is.readUInt256LE();
@@ -49,7 +49,7 @@ public class BlockParser {
 		return block;
 	}
 	
-	private static Transaction parseTx(ByteParsingPipeInputStreamReader ois) throws IOException {
+	private static Transaction parseTx(BlockInputStreamReader ois) throws IOException {
 		Transaction tx = new Transaction();
 		tx.version = ois.readUInt32LE();
 		tx.num_inputs = ois.readUVarIntLE();
@@ -89,7 +89,7 @@ public class BlockParser {
 
 	public static BigInteger getHeaderHash(byte[] header) {
 		byte[] digest = SHA256.digest(SHA256.digest(header));
-		ByteParsingPipeInputStreamReader.BEtoLE(digest);
+		BlockInputStreamReader.BEtoLE(digest);
 		return new BigInteger(1, digest);
 	}
 }
