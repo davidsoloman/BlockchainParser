@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 import de.reemo.blockchain.BlockInputStreamReader;
+import de.reemo.blockchain.common.Transaction;
 
 public class MerkleTransaction extends Transaction {
 	public BigInteger hashBlock;

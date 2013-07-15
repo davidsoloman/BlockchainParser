@@ -1,4 +1,4 @@
-package de.reemo.blockchain.namecoin;
+package de.reemo.blockchain.bitcoin;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -8,15 +8,13 @@ import de.reemo.blockchain.Block;
 import de.reemo.blockchain.BlockInputStreamReader;
 import de.reemo.blockchain.common.Transaction;
 
-public class NamecoinBlock extends Block {
+public class BitcoinBlock extends Block {
 
-	public static final long AUX_POW_VERSION = 65793L;
-
-	public BigInteger merkle_root;
 	public long nounce;
-	public AuxPow auxPow;
 
 	public Transaction[] txs;
+
+	public BigInteger merkle_root;
 
 	@Override
 	public int compareTo(Block o) {
@@ -31,10 +29,6 @@ public class NamecoinBlock extends Block {
 		timestamp = new Date(reader.readUInt32LE() * 1000);
 		bits = reader.readUInt32LE();
 		nounce = reader.readUInt32LE();
-		if (version == AUX_POW_VERSION) {
-			auxPow = new AuxPow();
-			auxPow.parse(reader);
-		}
 		if (headerOnly)
 			return;
 		Number readUIntVarLE = reader.readUIntVarLE();

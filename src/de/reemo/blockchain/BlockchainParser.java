@@ -37,7 +37,7 @@ public abstract class BlockchainParser {
 		});
 		Arrays.sort(blocks);
 		for (File block : blocks) {
-			// System.out.println("Scanning Blockfile " + block);
+			System.out.println("Scanning Blockfile " + block);
 			parseBlockfile(new BlockInputStreamReader(
 					new FileInputStream(block)));
 		}
@@ -47,9 +47,13 @@ public abstract class BlockchainParser {
 	public void parseBlockfile(BlockInputStreamReader is) throws IOException {
 		while (true) {
 			try {
-				// Read Magic bytes
-				if (is.readUInt32LE() != magicByte) {
-					continue;
+				try {
+					// Read Magic bytes
+					if (is.readUInt32LE() != magicByte) {
+						continue;
+					}
+				} catch (IOException e) {
+					break;
 				}
 				long blockLength = is.readUInt32LE();
 				byte[] block = new byte[(int) blockLength];

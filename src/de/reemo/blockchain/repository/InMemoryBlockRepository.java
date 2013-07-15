@@ -9,34 +9,42 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
 import de.reemo.blockchain.Block;
+import de.reemo.blockchain.bitcoin.BitcoinBlock;
+import de.reemo.blockchain.common.Transaction;
+import de.reemo.blockchain.common.TransactionOut;
 import de.reemo.blockchain.namecoin.NamecoinBlock;
 import de.reemo.blockchain.namecoin.Script;
-import de.reemo.blockchain.namecoin.Transaction;
-import de.reemo.blockchain.namecoin.TransactionOut;
 
 public class InMemoryBlockRepository implements BlockRepository {
 	Map<BigInteger, Long> height = new TreeMap<>();
 
 	@Override
 	public void add(Block newBlock) {
-		long height = getHeight(newBlock);
-		newBlock.height = height;
-		NamecoinBlock nBlock = (NamecoinBlock) newBlock;
-		for (Transaction tx : nBlock.txs) {
-			if (tx == null || tx.txOut == null)
-				break;
-			for (TransactionOut txout : tx.txOut) {
-				if (txout.script == null || txout.script.length == 0)
-					break;
-				if (txout.script[0] == Script.OP_NAME_FIRSTUPDATE) {
-					System.out.println(nBlock.height + ";"
-							+ getFee(nBlock.height, tx) + ";"
-							+ nBlock.timestamp.getTime() + ";"
-							+ getDomain(txout));
-					break;
-				}
-			}
-		}
+//		long height = getHeight(newBlock);
+//		newBlock.height = height;
+//		NamecoinBlock nBlock = (NamecoinBlock) newBlock;
+//		System.out.println(nBlock.height);
+//		if(newBlock.version == NamecoinBlock.AUX_POW_VERSION) {
+//			System.out.println("AUX");
+//		} else {
+//			System.out.println("NON_AUX");
+//		}
+//		System.out.println(nBlock.getTarget().toString(16));
+//		for (Transaction tx : nBlock.txs) {
+//			if (tx == null || tx.txOut == null)
+//				break;
+//			for (TransactionOut txout : tx.txOut) {
+//				if (txout.script == null || txout.script.length == 0)
+//					break;
+//				if (txout.script[0] == Script.OP_NAME_FIRSTUPDATE) {
+//					/*System.out.println(nBlock.height + ";"
+//							+ getFee(nBlock.height, tx) + ";"
+//							+ nBlock.timestamp.getTime() + ";"
+//							+ getDomain(txout));*/
+//					break;
+//				}
+//			}
+//		}
 	}
 
 	private String getDomain(TransactionOut txout) {
