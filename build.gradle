@@ -1,0 +1,16 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+task "create-dirs" << {
+   sourceSets*.java.srcDirs*.each { it.mkdirs() }
+   sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile group: "commons-codec", name: "commons-codec", version: "1.8"
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
