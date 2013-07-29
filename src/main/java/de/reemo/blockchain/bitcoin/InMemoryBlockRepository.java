@@ -13,7 +13,6 @@ public class InMemoryBlockRepository implements BlockRepository<BitcoinBlock> {
     @Override
     public void add(BitcoinBlock newBlock) {
         newBlock.height = getHeight(newBlock);
-        System.out.println(newBlock.merkle_root.toString(16));
     }
 
     protected long getHeight(Block b) {

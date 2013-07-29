@@ -30,7 +30,6 @@ public abstract class BlockchainParser<T extends Block> {
         });
         Arrays.sort(blocks);
         for (File block : blocks) {
-            System.out.println("Scanning Blockfile " + block);
             parseBlockfile(new BlockInputStreamReader(
                     new FileInputStream(block)));
         }
