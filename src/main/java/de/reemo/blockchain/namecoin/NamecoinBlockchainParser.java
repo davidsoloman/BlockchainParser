@@ -10,7 +10,6 @@ public class NamecoinBlockchainParser extends BlockchainParser<NamecoinBlock> {
     public NamecoinBlockchainParser(File blockDirectory,
                                     BlockRepository<NamecoinBlock> blockRepository) {
         super(blockDirectory, blockRepository, 0xFEB4BEF9L, new NamecoinBlockParser());
-        // TODO Auto-generated constructor stub
     }
 
 }

@@ -1,4 +1,7 @@
-package de.reemo.blockchain.bitcoin;
+package de.reemo.blockchain;
+
+import de.reemo.blockchain.bitcoin.BitcoinBlockchainParser;
+import de.reemo.blockchain.bitcoin.InMemoryBlockRepository;
 
 import java.io.File;
 import java.io.IOException;
